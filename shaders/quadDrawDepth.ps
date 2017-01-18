@@ -1,0 +1,13 @@
+Texture2D depthTex : register(t0);
+
+struct pi
+{
+    float4 Position : SV_POSITION;
+    float2 TexCoords: TEXCOORD0;
+};
+
+float4 main(in pi IN) : SV_Target0
+{
+    float4 tex = depthTex.Load(float3(IN.Position.xy,0)).r - 0.9;
+	return float4(tex.rgb, 1);
+}

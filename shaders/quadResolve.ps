@@ -1,0 +1,12 @@
+Texture2DMS<float> depthTex : register(t0);
+
+struct pi
+{
+    float4 Position : SV_POSITION;
+    float2 TexCoords: TEXCOORD0;
+};
+
+float main(in pi IN) : SV_Depth
+{
+    return depthTex.Load(IN.Position.xy, 0);
+}

@@ -1,0 +1,20 @@
+cbuffer perMaterial : register(b1)
+{
+	float4 color;
+};
+
+struct pi
+{
+	float4 Position : SV_POSITION;
+	float3 Pos	: TEXCOORD0;
+	float3 Normal	: TEXCOORD1;
+	float2 TexCoords: TEXCOORD2;
+};
+
+float4 main(in pi IN) : SV_Target0
+{
+	float dotNL = saturate(dot(IN.Normal,float3(0,1,0)));
+	float3 light = lerp(0.5f, 1, dotNL);
+
+	return float4(light,1);
+}
