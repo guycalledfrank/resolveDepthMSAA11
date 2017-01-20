@@ -392,12 +392,12 @@ private:
 		vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
 		for ( unsigned int i=0; i<shaderDesc.InputParameters; i++ )
 		{
-			D3D11_SIGNATURE_PARAMETER_DESC paramDesc;      
+			D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
 			refl->GetInputParameterDesc(i, &paramDesc);
 
 			// fill out input element desc
-			D3D11_INPUT_ELEMENT_DESC elementDesc;  
-			elementDesc.SemanticName =				paramDesc.SemanticName;     
+			D3D11_INPUT_ELEMENT_DESC elementDesc;
+			elementDesc.SemanticName =				paramDesc.SemanticName;
 			elementDesc.SemanticIndex =				paramDesc.SemanticIndex;
 			elementDesc.InputSlot =					paramDesc.Stream;
 			elementDesc.AlignedByteOffset =			0;
@@ -491,7 +491,7 @@ private:
 		desc.SampleDesc.Count =		AAlevel;
 		desc.SampleDesc.Quality =	AAquality;
 		desc.BindFlags =			flag;
-	
+
 		HRESULT h = engine::device->CreateTexture2D(&desc,NULL,(ID3D11Texture2D**)&tex);
 		if (FAILED(h))
 		{
@@ -523,7 +523,7 @@ public:
 		{
 			case DXGI_FORMAT_D16_UNORM:
 					texFormat = DXGI_FORMAT_R16_TYPELESS;
-					shaderFormat = DXGI_FORMAT_R16_FLOAT;
+					shaderFormat = DXGI_FORMAT_R16_UNORM;
 					break;
 			case DXGI_FORMAT_D24_UNORM_S8_UINT:
 					texFormat = DXGI_FORMAT_R24G8_TYPELESS;
@@ -764,7 +764,7 @@ LRESULT CALLBACK WndProc( HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 			::PostQuitMessage(0);
 			return 0;
 	}
-	
+
 	return ::DefWindowProc(hwnd, message, wparam, lparam);
 }
 
@@ -783,8 +783,8 @@ void CreateEngineWindow(HINSTANCE appHandle, int width, int height)
 	wc.lpszClassName = L"IEngine_C";
 	wc.lpszMenuName = 0;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
-	
-	if( !RegisterClass(&wc) ) 
+
+	if( !RegisterClass(&wc) )
 	{
 		error << "Can't register window class: "<<GetLastError()<<"\n";
 		cout << "Can't register window class.\n";
@@ -836,7 +836,7 @@ void InitDevice(int width, int height, int AA, bool fullScreen, bool vsync, DXGI
 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	HRESULT h = 
+	HRESULT h =
 #ifdef _DEBUG
 	D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_SINGLETHREADED | D3D11_CREATE_DEVICE_DEBUG,
 #else
@@ -924,7 +924,7 @@ void CreateQuad(mesh& quad)
 		-1,	1,	0,
 		1,	1,	0,
 	};
-	short quadIndices[] = 
+	short quadIndices[] =
 	{
 		2,	1,	0,
 		3,	1,	2
@@ -967,7 +967,7 @@ void CreateBox(mesh& box, float minX=-1, float minY=-1, float minZ=-1, float max
 		maxX,	maxY,	maxZ,		0,1,0,		0,1,
 		minX,	maxY,	maxZ,		0,1,0,		1,1
 	};
-	short boxIndices[] = 
+	short boxIndices[] =
 	{
 		2,	1,	0,
 		3,	1,	2,
